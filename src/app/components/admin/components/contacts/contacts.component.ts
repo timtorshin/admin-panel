@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AdminService } from '../../services/admin.service';
+import { User } from '../../user';
 
 @Component({
   selector: 'app-contacts',
@@ -6,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent implements OnInit {
-  constructor() {}
+  userList!: Observable<User[]>;
 
-  ngOnInit(): void {}
+  constructor(private adminService: AdminService) {}
+
+  ngOnInit(): void {
+    this.userList = this.adminService.getUsers();
+  }
 }

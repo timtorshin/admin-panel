@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AdminService } from '../../services/admin.service';
+import { User } from '../../user';
 
 @Component({
   selector: 'app-contacts-details',
@@ -6,7 +10,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contacts-details.component.scss']
 })
 export class ContactsDetailsComponent implements OnInit {
-  constructor() {}
+  id!: number;
+  user!: Observable<User>;
 
-  ngOnInit(): void {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private adminService: AdminService
+  ) {}
+
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe(params => this.id = params?.['id']);
+    this.user = this.adminService.getUser(this.id);
+  }
 }
