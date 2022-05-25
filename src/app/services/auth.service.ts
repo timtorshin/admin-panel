@@ -27,4 +27,8 @@ export class AuthService {
     }
     return throwError(() => new Error('Something went wrong, please try again!'));
   }
+
+  logout() {
+    this.router.navigate(['login']);
+  }
 }
