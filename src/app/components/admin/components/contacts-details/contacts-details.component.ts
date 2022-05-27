@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AdminService } from '../../services/admin.service';
+import { map, Observable } from 'rxjs';
 import { User } from '../../user';
 
 @Component({
@@ -13,13 +12,9 @@ export class ContactsDetailsComponent implements OnInit {
   id!: number;
   user!: Observable<User>;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private adminService: AdminService
-  ) {}
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params => this.id = params?.['id']);
-    this.user = this.adminService.getUser(this.id);
+    this.user = this.activatedRoute.data.pipe(map(data => data?.['user']));
   }
 }

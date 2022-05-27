@@ -9,7 +9,7 @@ export class AdminService {
   constructor(private http: HttpClient) {}
 
   getUsers() {
-    return this.http.get<User[]>('https://jsonplaceholder.typicode.com/users');
+    return this.http.get<User[]>('https://jsonplaceholder.typicode.com/users?_start=0&_limit=5');
   }
 
   getUser(id: number) {
